@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class Ventana_Principal extends javax.swing.JFrame {
     
     DecimalFormat df = new DecimalFormat("0.00");
+    DecimalFormat dfL = new DecimalFormat("0.00");
     /**
      * Creates new form Ventana_Principal
      */
@@ -125,13 +126,14 @@ public class Ventana_Principal extends javax.swing.JFrame {
 
     private void exchange_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exchange_buttonActionPerformed
         // TODO add your handling code here:
+        rate_text.setText(rate_text.getText().replace(",","."));
         if(rate_text.getText().isEmpty() || !isNumeric(rate_text.getText())){
             rate_text.setBackground(new Color(255,153,153));
             JOptionPane.showMessageDialog(this, "El cambio debe estar lleno o ser un numero.");
             
         }else{
             rate_text.setBackground(Color.white);
-            //rate_text.setText(df.format(Double.parseDouble(rate_text.getText())));
+            
             
             if((dollar_text.getText().isEmpty()) && euro_text.getText().isEmpty()){
                 euro_text.setText("1.00");
@@ -148,6 +150,8 @@ public class Ventana_Principal extends javax.swing.JFrame {
                 euro_text.setText(String.valueOf(df.format(resultado)));
                 
             }
+            rate_text.setText(df.format(Double.parseDouble(rate_text.getText())));
+            
         }
     }//GEN-LAST:event_exchange_buttonActionPerformed
 
@@ -194,6 +198,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
     
     private static boolean isNumeric(String cadena){
 	try {
+                System.out.println(cadena);
 		Double.parseDouble(cadena);
 		return true;
 	} catch (NumberFormatException nfe){
