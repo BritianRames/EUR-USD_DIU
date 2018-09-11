@@ -198,7 +198,6 @@ public class Ventana_Principal extends javax.swing.JFrame {
     
     private static boolean isNumeric(String cadena){
 	try {
-                System.out.println(cadena);
 		Double.parseDouble(cadena);
 		return true;
 	} catch (NumberFormatException nfe){
