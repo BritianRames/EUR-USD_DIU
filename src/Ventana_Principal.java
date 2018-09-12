@@ -16,13 +16,13 @@ import javax.swing.JOptionPane;
 public class Ventana_Principal extends javax.swing.JFrame {
     
     DecimalFormat df = new DecimalFormat("0.00");
-    DecimalFormat dfL = new DecimalFormat("0.00");
     /**
      * Creates new form Ventana_Principal
      */
     public Ventana_Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Currency Converter EUR/USD");
     }
 
     /**
@@ -42,6 +42,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
         dollar_text = new javax.swing.JTextField();
         euro_label = new javax.swing.JLabel();
         dollar_label = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,31 +72,38 @@ public class Ventana_Principal extends javax.swing.JFrame {
 
         dollar_label.setText("USD");
 
+        jLabel1.setText("Aythami Torrado Cabrera & Christian Brito Ramos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(euro_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(euro_text, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(dollar_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dollar_text, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(exchange_button)
-                            .addComponent(rate_label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rate_text, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(clear_button))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(euro_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(euro_text, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addComponent(dollar_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dollar_text, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(exchange_button)
+                                    .addComponent(rate_label))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rate_text, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(clear_button))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +122,8 @@ public class Ventana_Principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(clear_button)
                     .addComponent(exchange_button))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(jLabel1))
         );
 
         pack();
@@ -129,11 +138,12 @@ public class Ventana_Principal extends javax.swing.JFrame {
         rate_text.setText(rate_text.getText().replace(",","."));
         if(rate_text.getText().isEmpty() || !isNumeric(rate_text.getText())){
             rate_text.setBackground(new Color(255,153,153));
-            JOptionPane.showMessageDialog(this, "El cambio debe estar lleno o ser un numero.");
+            JOptionPane.showMessageDialog(this, "Rate field must be a natural numer.");
             
         }else{
             rate_text.setBackground(Color.white);
-            
+            dollar_text.setText(dollar_text.getText().replace(",","."));
+            euro_text.setText(euro_text.getText().replace(",","."));
             
             if((dollar_text.getText().isEmpty()) && euro_text.getText().isEmpty()){
                 euro_text.setText("1.00");
@@ -148,10 +158,13 @@ public class Ventana_Principal extends javax.swing.JFrame {
                         Double.parseDouble(rate_text.getText());
                 dollar_text.setText(df.format(Double.parseDouble(dollar_text.getText())));
                 euro_text.setText(String.valueOf(df.format(resultado)));
-                
+            } else if ( !isNumeric(dollar_text.getText()) || !isNumeric(euro_text.getText())){
+                JOptionPane.showMessageDialog(this, "Currency field must be a natural numer.");
             }
             rate_text.setText(df.format(Double.parseDouble(rate_text.getText())));
-            
+            rate_text.setText(rate_text.getText().replace(",","."));
+            dollar_text.setText(dollar_text.getText().replace(",","."));
+            euro_text.setText(euro_text.getText().replace(",","."));
         }
     }//GEN-LAST:event_exchange_buttonActionPerformed
 
@@ -212,6 +225,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel euro_label;
     private javax.swing.JTextField euro_text;
     private javax.swing.JButton exchange_button;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel rate_label;
     private javax.swing.JTextField rate_text;
     // End of variables declaration//GEN-END:variables
